@@ -1,21 +1,14 @@
-from kivy.uix.button import Button
 from kivy.app import App
-'''
-Application example using build() + return
-==========================================
-
-An application can be built if you return a widget on build(), or if you set
-self.root.
-'''
-import kivy
-kivy.require('1.0.7')
+from kivy.uix.widget import Widget
 
 
-class TestApp(App):
+class PongGame(Widget):
+    pass
 
+class PongApp(App):
     def build(self):
-        # return a Button() as a root widget
-        return Button(text='hello world')
+        return PongGame()
+
 
 if __name__ == '__main__':
-    TestApp().run()
+    PongApp().run()
