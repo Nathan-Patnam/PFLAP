@@ -1,0 +1,31 @@
+#:kivy 1.0.9
+Screen:
+
+    GridLayout:
+        size_hint_y: .7
+        pos_hint: {'y': .3}
+        id: labels_grid
+        cols: 2
+
+        canvas: # visualize grid layout
+            Color:
+                rgb: 0.3, 0.5, 0.3
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+    GridLayout:
+        size_hint_y: .3
+        cols: 1
+
+        TextInput:
+            id: input_1
+
+        TextInput:
+            id: input_2
+
+        MyButton:
+            text: 'add labels to grid'
+            text_1: input_1.text # binding labels text for easy use
+            text_2: input_2.text # with self.
+            on_press: self.add_labels(labels_grid)
