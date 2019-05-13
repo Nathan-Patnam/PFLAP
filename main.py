@@ -54,38 +54,26 @@ class DfaScreen(App):
         self.draw_delete_state_button()
     
     def draw_move_state_button(self):
-        label = Label(text='0')
-        btn_add100 = Button(text='Move State',
-                            on_press=partial(self.add_rects, label, self.wid, 100))
-        self.layout.add_widget(btn_add100)
-        
+        self.add_button("Move state", self.add_rects)
     
     def draw_add_state_button(self):
-        label = Label(text='0')
-        btn_add100 = Button(text='Add State',
-                            on_press=partial(self.add_rects, label, self.wid, 100))
-        self.layout.add_widget(btn_add100)
-    
+        self.add_button("Add state", self.add_rects)
+
     def draw_add_transition_button(self):
-        label = Label(text='0')
-        btn_add100 = Button(text='Add Transition Arrow',
-                            on_press=partial(self.add_rects, label, self.wid, 100))
-        self.layout.add_widget(btn_add100)
+        self.add_button("Add Transition Arrow", self.add_rects)
     
     def draw_edit_state_button(self):
-        label = Label(text='0')
-        btn_add100 = Button(text='Edit State',
-                            on_press=partial(self.add_rects, label, self.wid, 100))
-        self.layout.add_widget(btn_add100)
+        self.add_button("Edit State", self.add_rects)
     
     def draw_delete_state_button(self):
-        label = Label(text='0')
-        btn_add100 = Button(text='Delete State',
-                            on_press=partial(self.add_rects, label, self.wid, 100))
-        self.layout.add_widget(btn_add100)
+        self.add_button("Delete State", self.add_rects)
+    
+    def add_button(self, name, on_click_callback):
+        button_label = Label(text='0')
+        button = Button(text=name,
+                        on_press=partial(on_click_callback, button_label, self.wid, 100))
+        self.layout.add_widget(button)
+
         
-
-
-
 if __name__ == '__main__':
     DfaScreen().run()
