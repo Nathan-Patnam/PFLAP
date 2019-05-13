@@ -39,27 +39,19 @@ class DfaScreen(App):
 
     def build(self):
         self.wid = Widget()
-        label = Label(text='0')
-
+        self.create_bottom_nav_bars()
+        root = BoxLayout(orientation='vertical')
+        root.add_widget(self.wid)
+        root.add_widget(self.layout)
+        return root
+    
+    def create_bottom_nav_bars(self):
         self.layout = BoxLayout(size_hint=(1, None), height=50)
         self.draw_move_state_button()
         self.draw_add_state_button()
         self.draw_add_transition_button()
         self.draw_edit_state_button()
         self.draw_delete_state_button()
-
-
-
-        #elf.layout.add_widget(btn_double)
-        #self.layout.add_widget(btn_reset)
-
-        #self.layout.add_widget(label)
-
-        root = BoxLayout(orientation='vertical')
-        root.add_widget(self.wid)
-        root.add_widget(self.layout)
-
-        return root
     
     def draw_move_state_button(self):
         label = Label(text='0')
