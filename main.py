@@ -6,28 +6,42 @@ from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.app import App
-from kivy.graphics import Color, Rectangle
+from kivy.graphics import Color,  Rectangle, Ellipse
 from random import random as r
 from functools import partial
 
 class DfaScreen(App):
     def build(self):
         root = BoxLayout(orientation='vertical')
-        canvas = Widget()
-        root.add_widget(canvas)
+        self.__canvas = Widget()
 
-        self.__canvas_nav_bar = NavBar(canvas)
-        canvas.bind(on_touch_down=self.onPressed)
+        # with self.__canvas.canvas:
+        #     self.__canvas.canvas.add(Rectangle(size=(50, 50)))
+
+        #     #self.__canvas.bg_rect = Rectangle( source="cover.jpg", pos=self.pos, size=self.size)
+        #     self.__canvas.bind()
+        root.add_widget(self.__canvas)
+
+        self.__canvas_nav_bar = NavBar(self.__canvas)
+        self.__canvas.bind(on_touch_down=self.onPressed)
         
         root.add_widget(self.__canvas_nav_bar.layout)
         return root
+    
+    
+    
+    def redraw(self, args):
+        self.bg_rect.size = self.size
+        self.bg_rect.pos = self.pos
+
+
     
 
     def onPressed(self, a, event):
         current_mode = self.get_current_mode()
         print(current_mode)
         if current_mode == "ADD_STATE":
-            print("add state")
+            self.draw_state(event)
         elif current_mode == "MOVE_STATE":
             print("move state")
         elif current_mode == "ADD_TRANSITION_ARROW":
@@ -36,14 +50,22 @@ class DfaScreen(App):
             print("delete state")
         elif current_mode == "EDIT_STATE":
             print("edit state")
-        
-        """
-        with wid.canvas:
-            clicked_coordinates = wid.pos
-            x = clicked_coordinates[0]
-            y = clicked_coordinates[0]
-            RADIUS = 25
-        """
+
+    
+    def draw_state(self, event):
+        coordinates = event.pos
+        x = coordinates[0]
+        y = coordinates[1]
+        canvas = self.get_canvas()
+        Color(1, 1, 0)
+        canvas.add(Color(1., 1., 0))
+        canvas.add(Ellipse(pos=(x - 50, y - 50), size=(100, 100)))
+
+
+    
+    def get_canvas(self):
+        return self.__canvas.canvas
+    
     
     def get_current_mode(self):
         current_mode = self.__canvas_nav_bar.get_current_mode()
