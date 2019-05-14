@@ -63,40 +63,33 @@ class NavBar():
     
 
     def draw_move_state_button(self):
-        self.add_button("Move state", self.change_state_to_move_state)
+        self.add_button("Move state", partial(self.set_current_mode, "MOVE_STATE"))
     
-    def change_state_to_move_state(self, label, wid, count, *largs):
-        self.current_mode = "MOVE_STATE"
-
     def draw_add_state_button(self):
-        self.add_button("Add state", self.change_state_to_add_state)
+        self.add_button("Add state", partial(self.set_current_mode, "ADD_STATE"))
 
-    def change_state_to_add_state(self, label, wid, count, *largs):
-        self.current_mode = "ADD_STATE"
 
     def draw_add_transition_button(self):
-        self.add_button("Add Transition Arrow", self.change_state_to_add_transition)
-
-    def change_state_to_add_transition(self, label, wid, count, *largs):
-        self.current_mode = "ADD_TRANSITION_ARROW"
+        self.add_button("Add Transition Arrow", partial(
+            self.set_current_mode, "ADD_TRANSITION_ARROW"))
 
     def draw_edit_state_button(self):
-        self.add_button("Edit State", self.change_state_to_edit_state)
+        self.add_button("Edit State", partial(
+            self.set_current_mode, "EDIT_STATE"))
     
-    def change_state_to_edit_state(self, label, wid, count, *largs):
-        self.current_mode = "EDIT_STATE"
-
     def draw_delete_state_button(self):
-        self.add_button("Delete State", self.change_state_to_delete_state)
+        self.add_button("Delete State", partial(
+            self.set_current_mode, "DELETE_STATE"))
 
-    def change_state_to_delete_state(self, label, wid, count, *largs):
-        self.current_mode = "DELETE_STATE"
     
     def add_button(self, name, on_click_callback):
         button_label = Label(text='0')
         button = Button(text=name,
-                        on_press=partial(on_click_callback, button_label, self.widget, 100))
+                        on_press=on_click_callback)
         self.layout.add_widget(button)
+    
+    def set_current_mode(self, new_mode, c):
+        self.current_mode = new_mode
     
     def add_rects(self, label, wid, count, *largs):
         label.text = str(int(label.text) + count)
